@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+ 
+	<PropertyGroup>
+		<NuGetBin>..\packages\NuGet.CommandLine.2.8.3\tools\NuGet.exe</NuGetBin>
+	</PropertyGroup>
+
+	<Target Name="Build">
+
+		<MSBuild Properties="Configuration=$(Configuration);VisualStudioVersion=12.0"
+						 Projects="..\UniversalImageLoader.sln" 
+						 RebaseOutputs="false" 
+						 BuildInParallel="True" />
+
+ 
+		<CallTarget Targets="BuildNuGetPackage" />
+
+	</Target>
+
+	<Target Name="BuildNuGetPackage">
+		<PropertyGroup>
+			<NugetNamespace>http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd</NugetNamespace>
+		</PropertyGroup>
+
+		<Message Condition="'$(PublishNuget)'!=''" Text="NuGet package publishing is ENABLED (Target: $(NuGetRepositoryPath))" />
+		<Message Condition="'$(PublishNuget)'==''" Text="NuGet package publishing is DISABLED (Target: $(NuGetRepositoryPath))" />
+
+		<!-- Create the packages -->
+		<Exec Command="$(NuGetBin) pack UniversalImageLoader.nuspec" />
+
+		<!-- Publish the new packages -->
+		<Exec Command="copy .\UniversalImageLoader.1.9.3.0.nupkg $(NuGetRepositoryPath)" Condition="'$(PublishNuget)'!=''" />
+		<Exec Command="copy .\UniversalImageLoader.1.9.3.0.$(NuGetPackageVersion).nupkg $(MyOutputDir)" />
+
+	</Target>
+
+</Project>
