@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>Umbrella</id>
+		<id>UniversalImageLoader</id>
 		<version>1.9.3.0</version>
-		<title>UniversalImageLoader</title>
+		<title>Android Universal Image Loader</title>
 		<authors>nventive</authors>
 		<owners />
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
