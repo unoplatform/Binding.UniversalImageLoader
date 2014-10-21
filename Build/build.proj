@@ -4,6 +4,7 @@
  
 	<PropertyGroup>
 		<NuGetBin>..\packages\NuGet.CommandLine.2.8.3\tools\NuGet.exe</NuGetBin>
+		<NuGetRepositoryPath>\\main.nventive.local\Drops\Umbrella\Packages</NuGetRepositoryPath>
 	</PropertyGroup>
 
 	<Target Name="Build">
@@ -31,7 +32,7 @@
 
 		<!-- Publish the new packages -->
 		<Exec Command="copy .\UniversalImageLoader.1.9.3.0.nupkg $(NuGetRepositoryPath)" Condition="'$(PublishNuget)'!=''" />
-		<Exec Command="copy .\UniversalImageLoader.1.9.3.0.$(NuGetPackageVersion).nupkg $(MyOutputDir)" />
+		<Exec Command="copy .\UniversalImageLoader.1.9.3.0.nupkg $(MyOutputDir)" />
 
 	</Target>
 
