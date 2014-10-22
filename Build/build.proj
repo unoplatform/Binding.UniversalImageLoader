@@ -5,7 +5,7 @@
 	<PropertyGroup>
 		<NuGetBin>..\packages\NuGet.CommandLine.2.8.3\tools\NuGet.exe</NuGetBin>
 		<NuGetRepositoryPath>\\main.nventive.local\Drops\Umbrella\Packages</NuGetRepositoryPath>
-		<PackageVersion>1.9.3.2</PackageVersion>
+		<PackageVersion>1.9.3.3</PackageVersion>
 	</PropertyGroup>
 
 	<Target Name="Build">

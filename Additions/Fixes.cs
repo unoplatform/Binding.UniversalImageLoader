@@ -16,59 +16,6 @@ using Android.Graphics;
 
 namespace Com.Nostra13.Universalimageloader.Cache.Memory.Impl
 {
-	//partial class FIFOLimitedMemoryCache
-	//{
-	//	protected override int GetSize(Java.Lang.Object value)
-	//	{
-	//		return GetSize(value);
-	//	}
-
-	//	protected override Java.Lang.Ref.Reference CreateReference(Java.Lang.Object value)
-	//	{
-	//		return CreateReference(value);
-	//	}
-	//}
-
-	//partial class LargestLimitedMemoryCache
-	//{
-	//	protected override int GetSize(Java.Lang.Object value)
-	//	{
-	//		return GetSize(value);
-	//	}
-
-	//	protected override Java.Lang.Ref.Reference CreateReference(Java.Lang.Object value)
-	//	{
-	//		return CreateReference(value);
-	//	}
-	//}
-
-	//partial class LRULimitedMemoryCache
-	//{
-	//	protected override int GetSize(Java.Lang.Object value)
-	//	{
-	//		return GetSize(value);
-	//	}
-
-	//	protected override Java.Lang.Ref.Reference CreateReference(Java.Lang.Object value)
-	//	{
-	//		return CreateReference(value);
-	//	}
-	//}
-
-	//partial class UsingFreqLimitedMemoryCache
-	//{
-	//	protected override int GetSize(Java.Lang.Object value)
-	//	{
-	//		return GetSize(value);
-	//	}
-
-	//	protected override Java.Lang.Ref.Reference CreateReference(Java.Lang.Object value)
-	//	{
-	//		return CreateReference(value);
-	//	}
-	//}
-
-
 	partial class FuzzyKeyMemoryCache
 	{
 		Java.Lang.Object IMemoryCacheAware.Get(Java.Lang.Object p0)
