@@ -5,7 +5,7 @@
 	<PropertyGroup>
 		<NuGetBin>..\packages\NuGet.CommandLine.2.8.3\tools\NuGet.exe</NuGetBin>
 		<NuGetRepositoryPath>\\main.nventive.local\Drops\Umbrella\Packages</NuGetRepositoryPath>
-		<PackageVersion>1.9.3.1</PackageVersion>
+		<PackageVersion>1.9.3.2</PackageVersion>
 	</PropertyGroup>
 
 	<Target Name="Build">
@@ -27,6 +27,15 @@
 
 		<Message Condition="'$(PublishNuget)'!=''" Text="NuGet package publishing is ENABLED (Target: $(NuGetRepositoryPath))" />
 		<Message Condition="'$(PublishNuget)'==''" Text="NuGet package publishing is DISABLED (Target: $(NuGetRepositoryPath))" />
+		
+		<!-- Update the assembly versions -->
+		<Exec Command="attrib -r .\UniversalImageLoader.nuspec" />
+
+		<XmlPoke
+			XmlInputPath=".\UniversalImageLoader.nuspec"
+			Query ="/x:package/x:metadata/x:version"
+			Value="$(PackageVersion)"
+			Namespaces="&lt;Namespace Prefix='x' Uri='http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd' /&gt;" />
 
 		<!-- Create the packages -->
 		<Exec Command="$(NuGetBin) pack UniversalImageLoader.nuspec" />
