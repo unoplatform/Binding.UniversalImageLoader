@@ -15,17 +15,18 @@ using System.Threading;
 using System.Drawing;
 using Com.Nostra13.Universalimageloader.Core.Listener;
 using System.Globalization;
+using Com.Nostra13.Universalimageloader.Core.Imageaware;
 
 namespace Com.Nostra13.Universalimageloader.Core
 {
 	public partial class ImageLoader
 	{
-		public Task<Bitmap> LoadImageAsync(CancellationToken ct, string uri, Size? targetSize = null)
+		public Task<Bitmap> LoadImageAsync(CancellationToken ct, string uri, ImageView imageView, Size? targetSize = null)
 		{
-			return LoadImageAsync(ct, uri, targetSize, null);
+			return LoadImageAsync(ct, uri, imageView, targetSize, null);
 		}
 
-		public async Task<Bitmap> LoadImageAsync(CancellationToken ct, string uri, Size? targetSize, DisplayImageOptions options)
+		public async Task<Bitmap> LoadImageAsync(CancellationToken ct, string uri, ImageView imageView, Size? targetSize, DisplayImageOptions options)
 		{
 			TaskCompletionSource<Android.Graphics.Bitmap> source = new TaskCompletionSource<Android.Graphics.Bitmap>();
 
@@ -34,11 +35,16 @@ namespace Com.Nostra13.Universalimageloader.Core
 				.CacheOnDisk(true)
 				.Build();
 
+			var aware = new ImageViewAware(imageView);
+
 			if (targetSize != null)
 			{
-				ImageLoader.Instance.LoadImage(
+				imageView.SetMaxHeight(targetSize.Value.Height);
+				imageView.SetMaxWidth(targetSize.Value.Width);
+
+				ImageLoader.Instance.DisplayImage(
 					uri,
-					new Com.Nostra13.Universalimageloader.Core.Assist.ImageSize(targetSize.Value.Width, targetSize.Value.Height),
+					imageView,
 					options,
 					new ImageListener(source)
 				);
@@ -53,12 +59,6 @@ namespace Com.Nostra13.Universalimageloader.Core
 			}
 
 			var target = await source.Task;
-
-			if(target == null)
-			{
-				// Try again, LoadImage cancels an existing image loading if there is a new one for the same uri...
-				target = await LoadImageAsync(ct, uri, targetSize, options);
-			}
 
 			return target;
 		}
