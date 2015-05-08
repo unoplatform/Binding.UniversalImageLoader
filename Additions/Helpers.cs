@@ -74,6 +74,16 @@ namespace Com.Nostra13.Universalimageloader.Core
 		{
 			private readonly CancellationToken _ct;
 
+			public ImageViewAwareCancellable(System.IntPtr ptr, Android.Runtime.JniHandleOwnership ownership)
+				:base (ptr, ownership)
+			{
+				// Force cancellation of the token. This is used when the instance is forcibly re-created 
+				// by the runtime
+				CancellationTokenSource cts = new CancellationTokenSource();
+				_ct = cts.Token;
+				cts.Cancel();
+            }
+
 			public ImageViewAwareCancellable(global::Android.Widget.ImageView p0, CancellationToken ct): base(p0)
 			{
 				_ct = ct;
@@ -118,6 +128,14 @@ namespace Com.Nostra13.Universalimageloader.Core
 		private class ImageListener : Java.Lang.Object, IImageLoadingListener
 		{
 			private TaskCompletionSource<Android.Graphics.Bitmap> _source;
+
+			public ImageListener(System.IntPtr ptr, Android.Runtime.JniHandleOwnership ownership)
+				:base (ptr, ownership)
+			{
+				// Fake source, used when the instance is forcibly re-created 
+				// by the runtime when the display is cancelled.
+				_source = new TaskCompletionSource<Bitmap>();
+            }
 
 			public ImageListener(TaskCompletionSource<Android.Graphics.Bitmap> source)
 			{
