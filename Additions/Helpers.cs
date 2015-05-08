@@ -38,32 +38,36 @@ namespace Com.Nostra13.Universalimageloader.Core
 				.CacheOnDisk(true)
 				.Build();
 
-			var aware = new ImageViewAwareCancellable(imageView, ct);
-
-			if (targetSize != null)
+			using (var aware = new ImageViewAwareCancellable(imageView, ct))
 			{
-				imageView.SetMaxHeight(targetSize.Value.Height);
-				imageView.SetMaxWidth(targetSize.Value.Width);
+				using (var listener = new ImageListener(source))
+				{
+					if (targetSize != null)
+					{
+						imageView.SetMaxHeight(targetSize.Value.Height);
+						imageView.SetMaxWidth(targetSize.Value.Width);
 
-				ImageLoader.Instance.DisplayImage(
-					uri,
-					aware,
-					options,
-					new ImageListener(source)
-				);
+						ImageLoader.Instance.DisplayImage(
+							uri,
+							aware,
+							options,
+							listener
+						);
+					}
+					else
+					{
+						ImageLoader.Instance.LoadImage(
+							uri,
+							options,
+							new ImageListener(source)
+						);
+					}
+
+					var target = await source.Task;
+
+					return target;
+				}
 			}
-			else
-			{
-				ImageLoader.Instance.LoadImage(
-					uri,
-					options,
-					new ImageListener(source)
-				);
-			}
-
-			var target = await source.Task;
-
-			return target;
 		}
 
 		private class ImageViewAwareCancellable : ImageViewAware
