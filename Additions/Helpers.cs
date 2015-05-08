@@ -30,6 +30,8 @@ namespace Com.Nostra13.Universalimageloader.Core
 		{
 			TaskCompletionSource<Android.Graphics.Bitmap> source = new TaskCompletionSource<Android.Graphics.Bitmap>();
 
+			ct.Register(() => source.SetCanceled());
+
 			options = options ?? new DisplayImageOptions.Builder()
 				.CacheInMemory(true)
 				.CacheOnDisk(true)
@@ -79,7 +81,10 @@ namespace Com.Nostra13.Universalimageloader.Core
 
 			public void OnLoadingComplete(string p0, Android.Views.View p1, Android.Graphics.Bitmap bitmap)
 			{
-				_source.TrySetResult(bitmap);
+				if (!_source.Task.IsCanceled)
+				{
+					_source.TrySetResult(bitmap);
+				}
 			}
 
 			public void OnLoadingFailed(string p0, Android.Views.View p1, Com.Nostra13.Universalimageloader.Core.Assist.FailReason p2)
