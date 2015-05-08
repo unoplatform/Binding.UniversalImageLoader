@@ -31,7 +31,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 		{
 			TaskCompletionSource<Android.Graphics.Bitmap> source = new TaskCompletionSource<Android.Graphics.Bitmap>();
 
-			ct.Register(() => source.SetCanceled());
+			ct.Register(() => source.TrySetCanceled());
 
 			options = options ?? new DisplayImageOptions.Builder()
 				.CacheInMemory(true)
