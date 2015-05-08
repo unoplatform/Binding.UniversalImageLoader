@@ -16,6 +16,7 @@ using System.Drawing;
 using Com.Nostra13.Universalimageloader.Core.Listener;
 using System.Globalization;
 using Com.Nostra13.Universalimageloader.Core.Imageaware;
+using Android.Graphics.Drawables;
 
 namespace Com.Nostra13.Universalimageloader.Core
 {
@@ -37,7 +38,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 				.CacheOnDisk(true)
 				.Build();
 
-			var aware = new ImageViewAware(imageView);
+			var aware = new ImageViewAwareCancellable(imageView, ct);
 
 			if (targetSize != null)
 			{
@@ -46,7 +47,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 
 				ImageLoader.Instance.DisplayImage(
 					uri,
-					imageView,
+					aware,
 					options,
 					new ImageListener(source)
 				);
@@ -63,6 +64,51 @@ namespace Com.Nostra13.Universalimageloader.Core
 			var target = await source.Task;
 
 			return target;
+		}
+
+		private class ImageViewAwareCancellable : ImageViewAware
+		{
+			private readonly CancellationToken _ct;
+
+			public ImageViewAwareCancellable(global::Android.Widget.ImageView p0, CancellationToken ct): base(p0)
+			{
+				_ct = ct;
+			}
+
+			public override bool SetImageBitmap(Bitmap p0)
+			{
+				if (!_ct.IsCancellationRequested)
+				{
+					return base.SetImageBitmap(p0);
+				}
+
+				return false;
+			}
+			protected override void SetImageBitmapInto(Bitmap p0, View p1)
+			{
+				if (!_ct.IsCancellationRequested)
+				{
+					base.SetImageBitmapInto(p0, p1);
+				}
+			}
+
+			public override bool SetImageDrawable(Drawable p0)
+			{
+				if (!_ct.IsCancellationRequested)
+				{
+					return base.SetImageDrawable(p0);
+				}
+
+				return false;
+			}
+
+			protected override void SetImageDrawableInto(Drawable p0, View p1)
+			{
+				if (!_ct.IsCancellationRequested)
+				{
+					base.SetImageDrawableInto(p0, p1);
+				}
+			}
 		}
 
 		private class ImageListener : Java.Lang.Object, IImageLoadingListener
