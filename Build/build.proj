@@ -8,7 +8,7 @@
 		<NuGetRepositoryPath>\\main.nventive.local\Drops\Umbrella\Packages</NuGetRepositoryPath>
 		<PackageVersion>1.9.3.$(Revision)</PackageVersion>
 	</PropertyGroup>
-
+ 
 	<Target Name="Build">
 
 		<MSBuild Properties="Configuration=$(Configuration);VisualStudioVersion=12.0"
@@ -16,7 +16,6 @@
 						 RebaseOutputs="false" 
 						 BuildInParallel="True" />
 
- 
 		<CallTarget Targets="BuildNuGetPackage" />
 
 	</Target>
