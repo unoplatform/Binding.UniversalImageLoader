@@ -59,7 +59,7 @@
     <TransformFile Include="Transforms\EnumMethods.xml" />
   </ItemGroup>
   <ItemGroup>
-    <InputJar Include="Jars\universal-image-loader-1.9.3.jar" />
+    <EmbeddedJar Include="Jars\universal-image-loader-1.9.3.jar" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Build\ParallelTemplate.11.2.xaml">
