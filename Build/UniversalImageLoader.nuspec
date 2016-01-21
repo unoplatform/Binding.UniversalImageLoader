@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>UniversalImageLoader</id>
-		<version>1.9.3.1</version>
+		<version>1.9.3.2</version>
 		<title>Android Universal Image Loader</title>
 		<authors>nventive</authors>
 		<owners />
