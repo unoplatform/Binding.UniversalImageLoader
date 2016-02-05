@@ -17,6 +17,7 @@ using Com.Nostra13.Universalimageloader.Core.Listener;
 using System.Globalization;
 using Com.Nostra13.Universalimageloader.Core.Imageaware;
 using Android.Graphics.Drawables;
+using Com.Nostra13.Universalimageloader.Core.Assist;
 
 namespace Com.Nostra13.Universalimageloader.Core
 {
@@ -38,11 +39,15 @@ namespace Com.Nostra13.Universalimageloader.Core
 				.CacheOnDisk(true)
 				.Build();
 
-			using (var aware = new ImageViewAwareCancellable(imageView, ct))
+			using (var aware =
+				imageView != null ?
+					new ImageViewAwareCancellable(imageView, ct) :
+					null
+			)
 			{
 				using (var listener = new ImageListener(source))
 				{
-					if (targetSize != null)
+					if (targetSize != null && imageView != null)
 					{
 						imageView.SetMaxHeight(targetSize.Value.Height);
 						imageView.SetMaxWidth(targetSize.Value.Width);
@@ -52,6 +57,17 @@ namespace Com.Nostra13.Universalimageloader.Core
 							aware,
 							options,
 							listener
+						);
+					}
+					else if (targetSize != null && imageView == null)
+					{
+						var targetImageSize = new ImageSize(targetSize.Value.Width, targetSize.Value.Height);
+
+						ImageLoader.Instance.LoadImage(
+							uri,
+							targetImageSize,
+							options,
+							new ImageListener(source)
 						);
 					}
 					else
@@ -75,16 +91,16 @@ namespace Com.Nostra13.Universalimageloader.Core
 			private readonly CancellationToken _ct;
 
 			public ImageViewAwareCancellable(System.IntPtr ptr, Android.Runtime.JniHandleOwnership ownership)
-				:base (ptr, ownership)
+				: base(ptr, ownership)
 			{
 				// Force cancellation of the token. This is used when the instance is forcibly re-created 
 				// by the runtime
 				CancellationTokenSource cts = new CancellationTokenSource();
 				_ct = cts.Token;
 				cts.Cancel();
-            }
+			}
 
-			public ImageViewAwareCancellable(global::Android.Widget.ImageView p0, CancellationToken ct): base(p0)
+			public ImageViewAwareCancellable(global::Android.Widget.ImageView p0, CancellationToken ct) : base(p0)
 			{
 				_ct = ct;
 			}
@@ -130,12 +146,12 @@ namespace Com.Nostra13.Universalimageloader.Core
 			private TaskCompletionSource<Android.Graphics.Bitmap> _source;
 
 			public ImageListener(System.IntPtr ptr, Android.Runtime.JniHandleOwnership ownership)
-				:base (ptr, ownership)
+				: base(ptr, ownership)
 			{
 				// Fake source, used when the instance is forcibly re-created 
 				// by the runtime when the display is cancelled.
 				_source = new TaskCompletionSource<Bitmap>();
-            }
+			}
 
 			public ImageListener(TaskCompletionSource<Android.Graphics.Bitmap> source)
 			{
