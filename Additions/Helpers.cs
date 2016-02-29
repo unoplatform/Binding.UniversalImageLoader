@@ -102,7 +102,8 @@ namespace Com.Nostra13.Universalimageloader.Core
 
 			public ImageViewAwareCancellable(global::Android.Widget.ImageView p0, CancellationToken ct) : base(p0)
 			{
-				_ct = ct;
+				//We do not want to Cancel any request since it makes the ImageLoader code misbehave in multiple scenarios.
+				_ct = CancellationToken.None;
 			}
 
 			public override bool SetImageBitmap(Bitmap p0)

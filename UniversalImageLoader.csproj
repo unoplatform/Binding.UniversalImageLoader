@@ -59,12 +59,12 @@
     <TransformFile Include="Transforms\EnumMethods.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedJar Include="Jars\universal-image-loader-1.9.3.jar" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Build\ParallelTemplate.11.2.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <InputJar Include="Jars\universal-image-loader-1.9.5.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

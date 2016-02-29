@@ -5,7 +5,7 @@
 	<PropertyGroup>
 		<Revision>$(TeamBuildNumber.Substring(1))</Revision>
 		<NuGetBin>..\packages\NuGet.CommandLine.2.8.3\tools\NuGet.exe</NuGetBin>
-		<PackageVersion>1.9.3.$(Revision)</PackageVersion>
+		<PackageVersion>1.9.5.$(Revision)</PackageVersion>
 	</PropertyGroup>
  
 	<Target Name="Build">

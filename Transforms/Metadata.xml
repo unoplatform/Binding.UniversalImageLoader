@@ -5,5 +5,5 @@
 	<attr path="/api/package[@name='com.nostra13.universalimageloader.cache.memory.impl']/class[@name='LargestLimitedMemoryCache']/method[@name='removeNext']" name="managedReturn">Java.Lang.Object</attr>
 	<attr path="/api/package[@name='com.nostra13.universalimageloader.cache.memory.impl']/class[@name='LRULimitedMemoryCache']/method[@name='removeNext']" name="managedReturn">Java.Lang.Object</attr>
 	<attr path="/api/package[@name='com.nostra13.universalimageloader.cache.memory.impl']/class[@name='UsingFreqLimitedMemoryCache']/method[@name='removeNext']" name="managedReturn">Java.Lang.Object</attr>-->
-	<attr path="/api/package[@name='com.nostra13.universalimageloader.cache.disc.impl.ext']/class[@name='LruDiscCache']/field[@name='cache']" name="type">Java.Lang.Object</attr>
+	<attr path="/api/package[@name='com.nostra13.universalimageloader.cache.disc.impl.ext']/class[@name='LruDiskCache']/field[@name='cache']" name="type">Java.Lang.Object</attr>
 </metadata>

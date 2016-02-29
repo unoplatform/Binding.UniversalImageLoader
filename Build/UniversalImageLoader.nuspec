@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>UniversalImageLoader</id>
-		<version>1.9.3.2</version>
+		<version>1.9.5.0</version>
 		<title>Android Universal Image Loader</title>
 		<authors>nventive</authors>
 		<owners />
@@ -17,6 +17,6 @@
 		<file src="..\Bin\Release\*.dll" target="lib\MonoAndroid" />
 		<file src="..\Bin\Release\*.pdb" target="lib\MonoAndroid" />
 
-		<file src="..\Jars\universal-image-loader-1.9.3.jar" target="content" />
+		<file src="..\Jars\universal-image-loader-1.9.5.jar" target="content" />
 	</files>
 </package>
