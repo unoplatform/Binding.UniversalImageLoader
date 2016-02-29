@@ -31,9 +31,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 		public async Task<Bitmap> LoadImageAsync(CancellationToken ct, string uri, ImageView imageView, Size? targetSize, DisplayImageOptions options)
 		{
 			TaskCompletionSource<Android.Graphics.Bitmap> source = new TaskCompletionSource<Android.Graphics.Bitmap>();
-
-			ct.Register(() => source.TrySetCanceled());
-
+			
 			options = options ?? new DisplayImageOptions.Builder()
 				.CacheInMemory(true)
 				.CacheOnDisk(true)
@@ -67,7 +65,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 							uri,
 							targetImageSize,
 							options,
-							new ImageListener(source)
+							listener
 						);
 					}
 					else
@@ -75,7 +73,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 						ImageLoader.Instance.LoadImage(
 							uri,
 							options,
-							new ImageListener(source)
+							listener
 						);
 					}
 
