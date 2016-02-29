@@ -64,7 +64,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <InputJar Include="Jars\universal-image-loader-1.9.5.jar" />
+    <EmbeddedJar Include="Jars\universal-image-loader-1.9.5.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
