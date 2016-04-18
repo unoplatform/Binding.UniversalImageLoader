@@ -12,13 +12,12 @@
     <RootNamespace>UniversalImageLoader</RootNamespace>
     <AssemblyName>UniversalImageLoader</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <JavaSdkDirectory>C:\Program Files (x86)\Java\jdk1.7.0_71</JavaSdkDirectory>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkVersion>v5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,8 +42,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Additions\Fixes.cs" />
-    <Compile Include="Additions\Helpers.cs" />
+    <Compile Include="Additions\LinkedBlockingDeque.cs" />
+    <Compile Include="Additions\ImageLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +66,10 @@
     <EmbeddedJar Include="Jars\universal-image-loader-1.9.5.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>REM copy "$(TargetDir)\*.*" "C:\SRC\NV_UMB\GenericApp\Main\packages\UniversalImageLoader.1.9.3.7879\lib\MonoAndroid"
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
