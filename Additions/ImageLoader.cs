@@ -36,7 +36,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 		{
 			try
 			{
-				for(var retryNo=0; retryNo < 12; retryNo++)
+				for (var retryNo = 0; retryNo < 12; retryNo++)
 				{
 					Task taskToWait;
 					Task<Bitmap> taskToRun = null;
@@ -59,7 +59,19 @@ namespace Com.Nostra13.Universalimageloader.Core
 					}
 					else if (taskToWait != null)
 					{
-						await taskToWait; // wait for other before retrying
+
+						try
+						{
+							await taskToWait; // wait for other before retrying
+						}
+						catch (Exception)
+						{
+							if (ct.IsCancellationRequested)
+							{
+								throw;
+							}
+							// else retry the current request
+						}
 
 						if (retryNo > 1)
 						{
