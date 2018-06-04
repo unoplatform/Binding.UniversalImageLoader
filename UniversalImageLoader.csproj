@@ -66,10 +66,6 @@
     <EmbeddedJar Include="Jars\universal-image-loader-1.9.5.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>REM copy "$(TargetDir)\*.*" "C:\SRC\NV_UMB\GenericApp\Main\packages\UniversalImageLoader.1.9.3.7879\lib\MonoAndroid"
-</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
