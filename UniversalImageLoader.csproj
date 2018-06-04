@@ -5,7 +5,7 @@
 		<RootNamespace>Com.Nostra13.Universalimageloader</RootNamespace>
 		<Authors>nventive</Authors>
 		<PackageId>nventive.UniversalImageLoader</PackageId>
-		<PackageTitle>Xamarin Binding for Android Universal Image Loader</PackageTitle>
+		<Title>Xamarin Binding for Android Universal Image Loader</Title>
 		<PackageProjectUrl>https://github.com/nventive/Binding.UniversalImageLoader</PackageProjectUrl>
 		<PackageLicenseUrl>https://github.com/nventive/Binding.UniversalImageLoader/blob/master/License.md</PackageLicenseUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
