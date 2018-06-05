@@ -1,6 +1,6 @@
 # Xamarin Binding for UniversalImageLoader
 
-A Xamarin.Android binding library for [UniversalImageLoader](https://github.com/nostra13/Android-Universal-Image-Loaders)
+A Xamarin.Android binding library for [UniversalImageLoader](https://github.com/nostra13/Android-Universal-Image-Loader)
 
 ## Status
 
