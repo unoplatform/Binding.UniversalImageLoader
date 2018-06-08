@@ -6,7 +6,7 @@
 		<Authors>nventive</Authors>
 		<PackageId>Uno.UniversalImageLoader</PackageId>
 		<Title>Xamarin Binding for Android Universal Image Loader</Title>
-		<PackageIconUrl>https://raw.githubusercontent.com/nventive/Binding.UniversalImageLoader/master/logo.jpg</PackageIconUrl>
+		<PackageIconUrl>https://nv-assets.azurewebsites.net/logos/uno.png</PackageIconUrl>
 		<PackageProjectUrl>https://github.com/nventive/Binding.UniversalImageLoader</PackageProjectUrl>
 		<PackageLicenseUrl>https://github.com/nventive/Binding.UniversalImageLoader/blob/master/License.md</PackageLicenseUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
