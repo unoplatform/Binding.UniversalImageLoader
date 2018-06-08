@@ -4,7 +4,7 @@
 		<OutputType>Library</OutputType>
 		<RootNamespace>Com.Nostra13.Universalimageloader</RootNamespace>
 		<Authors>nventive</Authors>
-		<PackageId>nventive.UniversalImageLoader</PackageId>
+		<PackageId>Uno.UniversalImageLoader</PackageId>
 		<Title>Xamarin Binding for Android Universal Image Loader</Title>
 		<PackageIconUrl>https://raw.githubusercontent.com/nventive/Binding.UniversalImageLoader/master/logo.jpg</PackageIconUrl>
 		<PackageProjectUrl>https://github.com/nventive/Binding.UniversalImageLoader</PackageProjectUrl>
