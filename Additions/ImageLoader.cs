@@ -98,54 +98,61 @@ namespace Com.Nostra13.Universalimageloader.Core
 		{
 			TaskCompletionSource<Android.Graphics.Bitmap> source = new TaskCompletionSource<Android.Graphics.Bitmap>();
 
+
 			options = options ?? new DisplayImageOptions.Builder()
 				.CacheInMemory(true)
 				.CacheOnDisk(true)
 				.Build();
 
-			using (var aware =
-				imageView != null
-					? new ImageViewAwareCancellable(imageView, ct)
-					: null
-				)
+			// Propagate cancellation to the managed TCS, even though we don't propagate it to Universal Image Loader. This is because UIL has 
+			// the air of cancelling downloads itself if another uri is requested for the same ImageView, leading us to wait on a task that 
+			// will never complete (thanks to the concurrency logic reusing existing tasks).
+			using (ct.Register(() => source.TrySetCanceled()))
 			{
-				using (var listener = new ImageListener(source))
+				using (var aware =
+					imageView != null
+						? new ImageViewAwareCancellable(imageView, ct)
+						: null
+					)
 				{
-					if (targetSize != null && imageView != null)
+					using (var listener = new ImageListener(source))
 					{
-						imageView.SetMaxHeight(targetSize.Value.Height);
-						imageView.SetMaxWidth(targetSize.Value.Width);
+						if (targetSize != null && imageView != null)
+						{
+							imageView.SetMaxHeight(targetSize.Value.Height);
+							imageView.SetMaxWidth(targetSize.Value.Width);
 
-						ImageLoader.Instance.DisplayImage(
-							uri,
-							aware,
-							options,
-							listener
-							);
+							ImageLoader.Instance.DisplayImage(
+								uri,
+								aware,
+								options,
+								listener
+								);
+						}
+						else if (targetSize != null && imageView == null)
+						{
+							var targetImageSize = new ImageSize(targetSize.Value.Width, targetSize.Value.Height);
+
+							ImageLoader.Instance.LoadImage(
+								uri,
+								targetImageSize,
+								options,
+								listener
+								);
+						}
+						else
+						{
+							ImageLoader.Instance.LoadImage(
+								uri,
+								options,
+								listener
+								);
+						}
+
+						var target = await source.Task;
+
+						return target;
 					}
-					else if (targetSize != null && imageView == null)
-					{
-						var targetImageSize = new ImageSize(targetSize.Value.Width, targetSize.Value.Height);
-
-						ImageLoader.Instance.LoadImage(
-							uri,
-							targetImageSize,
-							options,
-							listener
-							);
-					}
-					else
-					{
-						ImageLoader.Instance.LoadImage(
-							uri,
-							options,
-							listener
-							);
-					}
-
-					var target = await source.Task;
-
-					return target;
 				}
 			}
 		}
@@ -225,7 +232,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 
 			public void OnLoadingCancelled(string p0, Android.Views.View p1)
 			{
-				_source.SetCanceled();
+				_source.TrySetCanceled();
 			}
 
 			public void OnLoadingComplete(string p0, Android.Views.View p1, Android.Graphics.Bitmap bitmap)
