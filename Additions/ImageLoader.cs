@@ -1,28 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.Drawing;
+using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
+using Android.Graphics.Drawables;
 using Android.Views;
 using Android.Widget;
-using System.Threading.Tasks;
-using Android.Graphics;
-using System.Threading;
-using System.Drawing;
-using Com.Nostra13.Universalimageloader.Core.Listener;
-using System.Globalization;
-using Com.Nostra13.Universalimageloader.Core.Imageaware;
-using Android.Graphics.Drawables;
 using Com.Nostra13.Universalimageloader.Core.Assist;
+using Com.Nostra13.Universalimageloader.Core.Imageaware;
+using Com.Nostra13.Universalimageloader.Core.Listener;
+
+using Bitmap = Android.Graphics.Bitmap;
 
 namespace Com.Nostra13.Universalimageloader.Core
 {
-	public partial class ImageLoader
+    public partial class ImageLoader
 	{
 		public Task<Bitmap> LoadImageAsync(CancellationToken ct, string uri, ImageView imageView, Size? targetSize = null)
 		{
@@ -96,7 +90,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 
 		private static async Task<Bitmap> InnerLoadImageAsync(CancellationToken ct, string uri, ImageView imageView, Size? targetSize, DisplayImageOptions options)
 		{
-			TaskCompletionSource<Android.Graphics.Bitmap> source = new TaskCompletionSource<Android.Graphics.Bitmap>();
+			TaskCompletionSource<Bitmap> source = new TaskCompletionSource<Bitmap>();
 
 
 			options = options ?? new DisplayImageOptions.Builder()
@@ -215,7 +209,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 
 		private class ImageListener : Java.Lang.Object, IImageLoadingListener
 		{
-			private TaskCompletionSource<Android.Graphics.Bitmap> _source;
+			private TaskCompletionSource<Bitmap> _source;
 
 			public ImageListener(System.IntPtr ptr, Android.Runtime.JniHandleOwnership ownership)
 				: base(ptr, ownership)
@@ -225,7 +219,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 				_source = new TaskCompletionSource<Bitmap>();
 			}
 
-			public ImageListener(TaskCompletionSource<Android.Graphics.Bitmap> source)
+			public ImageListener(TaskCompletionSource<Bitmap> source)
 			{
 				_source = source;
 			}
@@ -235,7 +229,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 				_source.TrySetCanceled();
 			}
 
-			public void OnLoadingComplete(string p0, Android.Views.View p1, Android.Graphics.Bitmap bitmap)
+			public void OnLoadingComplete(string p0, Android.Views.View p1, Bitmap bitmap)
 			{
 				if (!_source.Task.IsCanceled)
 				{

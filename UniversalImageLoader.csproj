@@ -14,9 +14,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFramework>monoandroid50</TargetFramework>
+		<TargetFramework>MonoAndroid10.0</TargetFramework>
 		<TargetFrameworkIdentifier>MonoAndroid</TargetFrameworkIdentifier>
-		<TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+		<TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
