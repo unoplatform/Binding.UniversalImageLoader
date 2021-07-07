@@ -1,0 +1,66 @@
+pool:
+  vmImage: 'windows-2019'
+
+trigger:
+  branches:
+    include:
+      - master
+      - release/beta/*
+      - release/stable/*
+
+pr: 
+  branches:
+    include:
+      - master
+      - release/beta/*
+      - release/stable/*
+
+variables:
+  # net6 preview install related
+  DotNetVersion: 6.0.100-preview.4.21255.9
+  MauiCheck.Version: 0.4.2
+  DotNet.Cli.Telemetry.OptOut: true
+  MauiCheck.Manifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
+
+  BuildConfiguration: 'Release'
+
+steps:
+  - task: gitversion/setup@0
+    inputs:
+      versionSpec: '5.x'
+
+  - task: gitversion/execute@0
+    inputs:
+      updateAssemblyInfo: 'False'
+      useConfigFile: true
+      configFilePath: GitVersion.yml
+    displayName: Use GitVersion
+
+    ## Required until .NET 6 installs properly on Windows using UseDotnet
+  - powershell: |
+      $ProgressPreference = 'SilentlyContinue'
+      Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile dotnet-install.ps1
+      & .\dotnet-install.ps1 -Version $(DotNetVersion) -InstallDir "$env:ProgramFiles\dotnet\" -Verbose
+      & dotnet --list-sdks
+    displayName: install .NET $(DotNetVersion)
+    errorActionPreference: stop
+
+  - powershell: |
+      & dotnet tool update --global redth.net.maui.check --version $(MauiCheck.Version) --add-source https://api.nuget.org/v3/index.json
+      & maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $(MauiCheck.Manifest)
+    displayName: Install .NET 6 Workloads
+    errorActionPreference: stop
+
+  - task: MSBuild@1
+    displayName: 'Build solution UniversalImageLoader.sln'
+    inputs:
+      solution: UniversalImageLoader.sln
+      platform: 'Any CPU'
+      configuration: '$(BuildConfiguration)'
+      msbuildArguments: '/p:GeneratePackageOnBuild=true /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: Binding.UniversalImageLoader'
+    inputs:
+      ArtifactName: Binding.UniversalImageLoader
+
