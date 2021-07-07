@@ -51,13 +51,18 @@ steps:
     displayName: Install .NET 6 Workloads
     errorActionPreference: stop
 
+  - pwsh: |
+      cd $(build.sourcesdirectory)/src
+      dotnet msbuild UniversalImageLoader.sln /r /p:Configuration=$(BuildConfiguration) /p:GeneratePackageOnBuild=true /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /detailedsummary
+    displayName: Build
+
   - task: MSBuild@1
     displayName: 'Build solution UniversalImageLoader.sln'
     inputs:
       solution: UniversalImageLoader.sln
       platform: 'Any CPU'
       configuration: '$(BuildConfiguration)'
-      msbuildArguments: '/p:GeneratePackageOnBuild=true /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)'
+      msbuildArguments: ''
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: Binding.UniversalImageLoader'
