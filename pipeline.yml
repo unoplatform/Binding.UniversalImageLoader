@@ -52,17 +52,9 @@ steps:
     errorActionPreference: stop
 
   - pwsh: |
-      cd $(build.sourcesdirectory)/src
       dotnet msbuild UniversalImageLoader.sln /r /p:Configuration=$(BuildConfiguration) /p:GeneratePackageOnBuild=true /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /detailedsummary
     displayName: Build
 
-  - task: MSBuild@1
-    displayName: 'Build solution UniversalImageLoader.sln'
-    inputs:
-      solution: UniversalImageLoader.sln
-      platform: 'Any CPU'
-      configuration: '$(BuildConfiguration)'
-      msbuildArguments: ''
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: Binding.UniversalImageLoader'
