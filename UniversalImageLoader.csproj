@@ -28,6 +28,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="0.1.64" PrivateAssets="All" />
 		<PackageReference Include="GitVersionTask">
 			<Version>5.5.1</Version>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
