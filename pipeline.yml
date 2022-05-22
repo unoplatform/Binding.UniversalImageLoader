@@ -1,5 +1,5 @@
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-2022'
 
 trigger:
   branches:
@@ -19,7 +19,7 @@ variables:
   DotNetVersion: 6.0.300
   UnoCheck.Version: '1.3.1'
   DotNet.Cli.Telemetry.OptOut: true
-  UnoCheck.Manifest: https://raw.githubusercontent.com/unoplatform/uno.check/8c7f669060a6cca50f71bb0845281c424ad7eb0d/manifests/uno.ui-preview.manifest.json
+  UnoCheck.Manifest: https://raw.githubusercontent.com/unoplatform/uno.check/c4e7effc6d2a1fe8c8c282572228733c471faaa4/manifests/uno.ui-preview.manifest.json
 
   BuildConfiguration: 'Release'
 
