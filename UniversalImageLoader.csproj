@@ -16,6 +16,8 @@
 	<PropertyGroup>
 		<TargetFrameworks>monoandroid10.0;net6.0-android</TargetFrameworks>
 		<IsBindingProject>true</IsBindingProject>
+
+		<SupportedOSPlatformVersion Condition="'$(TargetFramework)'=='net6.0-android'">21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>

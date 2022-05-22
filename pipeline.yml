@@ -16,11 +16,10 @@ pr:
       - release/stable/*
 
 variables:
-  # net6 preview install related
-  DotNetVersion: 6.0.100-preview.4.21255.9
-  MauiCheck.Version: 0.4.2
+  DotNetVersion: 6.0.300
+  UnoCheck.Version: '1.3.1'
   DotNet.Cli.Telemetry.OptOut: true
-  MauiCheck.Manifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
+  UnoCheck.Manifest: https://raw.githubusercontent.com/unoplatform/uno.check/8c7f669060a6cca50f71bb0845281c424ad7eb0d/manifests/uno.ui-preview.manifest.json
 
   BuildConfiguration: 'Release'
 
@@ -44,12 +43,12 @@ steps:
       & dotnet --list-sdks
     displayName: install .NET $(DotNetVersion)
     errorActionPreference: stop
-
   - powershell: |
-      & dotnet tool update --global redth.net.maui.check --version $(MauiCheck.Version) --add-source https://api.nuget.org/v3/index.json
-      & maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $(MauiCheck.Manifest)
+      & dotnet tool update --global uno.check --version $(UnoCheck.Version) --add-source https://api.nuget.org/v3/index.json
+      & uno-check --ci --non-interactive --fix --skip androidsdk --skip androidemulator --skip xcode --skip vswin --skip vsmac --manifest $(UnoCheck.Manifest)
     displayName: Install .NET 6 Workloads
-    errorActionPreference: stop
+    errorActionPreference: continue
+    ignoreLASTEXITCODE: true
 
   - pwsh: |
       dotnet msbuild UniversalImageLoader.sln /r /p:Configuration=$(BuildConfiguration) /p:GeneratePackageOnBuild=true /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /detailedsummary
