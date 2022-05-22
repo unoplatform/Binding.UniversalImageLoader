@@ -1,4 +1,4 @@
-﻿<Project Sdk="Xamarin.Legacy.Sdk/0.1.0-alpha2">
+﻿<Project Sdk="Xamarin.Legacy.Sdk/0.1.2-alpha6">
 	<PropertyGroup>
 		<AssemblyName>UniversalImageLoader</AssemblyName>
 		<OutputType>Library</OutputType>

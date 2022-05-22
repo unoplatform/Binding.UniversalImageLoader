@@ -51,12 +51,13 @@ steps:
     ignoreLASTEXITCODE: true
 
   - pwsh: |
-      dotnet msbuild UniversalImageLoader.sln /r /p:Configuration=$(BuildConfiguration) /p:GeneratePackageOnBuild=true /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /detailedsummary
+      dotnet msbuild UniversalImageLoader.sln /r /p:Configuration=$(BuildConfiguration) /p:GeneratePackageOnBuild=true /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /detailedsummary /bl:$(Build.ArtifactStagingDirectory)/msbuild.binlog
     displayName: Build
 
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: Binding.UniversalImageLoader'
+    condition: always()
     inputs:
       ArtifactName: Binding.UniversalImageLoader
 
