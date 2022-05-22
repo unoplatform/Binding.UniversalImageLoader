@@ -37,4 +37,10 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="_._" PackagePath="lib\net6.0-macos10.14" Pack="true" Visible="False" />
+		<Content Include="_._" PackagePath="lib\net6.0-ios10.0" Pack="true" Visible="False" />
+		<Content Include="_._" PackagePath="lib\net6.0-maccatalyst13.1" Pack="true" Visible="False" />
+	</ItemGroup>
 </Project>
