@@ -16,7 +16,7 @@ using Bitmap = Android.Graphics.Bitmap;
 
 namespace Com.Nostra13.Universalimageloader.Core
 {
-    public partial class ImageLoader
+	public partial class ImageLoader
 	{
 		public Task<Bitmap> LoadImageAsync(CancellationToken ct, string uri, ImageView imageView, Size? targetSize = null)
 		{
@@ -96,6 +96,7 @@ namespace Com.Nostra13.Universalimageloader.Core
 			options = options ?? new DisplayImageOptions.Builder()
 				.CacheInMemory(true)
 				.CacheOnDisk(true)
+				.ConsiderExifParams(true)
 				.Build();
 
 			// Propagate cancellation to the managed TCS, even though we don't propagate it to Universal Image Loader. This is because UIL has 
