@@ -54,6 +54,17 @@ steps:
       dotnet msbuild UniversalImageLoader.sln /r /p:Configuration=$(BuildConfiguration) /p:GeneratePackageOnBuild=true /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /detailedsummary /bl:$(Build.ArtifactStagingDirectory)/msbuild.binlog
     displayName: Build
 
+  - task: PowerShell@2
+    displayName: Authenticode Sign Packages
+    inputs:
+      filePath: build/Sign-Package.ps1
+    env:
+      SignClientUser: $(SignClientUser)
+      SignClientSecret: $(SignClientSecret)
+      SignPackageName: "Uno.PackageDiff"
+      SignPackageDescription: "Uno.PackageDiff"
+      ArtifactDirectory: $(build.artifactstagingdirectory)
+    condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: Binding.UniversalImageLoader'
