@@ -1,0 +1,7 @@
+{
+  "sdk": {
+    // Workaround CI error NETSDK1202: The workload 'net6.0-android' is out of support and will not receive security updates in the future. Please refer to https://aka.ms/maui-support-policy for more information about the support policy. [D:\a\1\s\UniversalImageLoader.csproj::TargetFramework=net6.0-android]
+    // We should upgrade at least the .NET SDK, but maybe the TFMs as well.
+    "version": "6.0.300"
+  }
+}
